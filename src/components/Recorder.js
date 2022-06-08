@@ -187,21 +187,23 @@ class Recorder extends Component {
               !medianotFound ?
                 (
                   <div className={styles.record_section}>
-                    <div className={styles.start_button_container}>
 
                     {
                       !recording ?
                         (
+                          <div className={styles.start_button_container}>
+
                           <button className={styles.start_button} title="Start recording"
                                   onClick={e => this.startRecording(e)}>
                             <FontAwesomeIcon icon={faMicrophone} />
                           </button>
-
+                          </div>
 
                         ) :
                         (
-                          <>
-                            <button className={styles.start_button} title="Upload recording" onClick={async e => {
+                          <div className={styles.start_button_container}>
+
+                          <button className={styles.start_button} title="Upload recording" onClick={async e => {
                               await this.stopRecording(e);
 
                               setTimeout(() => {
@@ -218,10 +220,9 @@ class Recorder extends Component {
                                     onClick={e => this.handleReset(e)}>
                               <FontAwesomeIcon icon={faTrashCan} />
                             </button>
-                          </>
+                          </div>
                         )
                     }
-                  </div>
                   </div>
                 ) :
                 (

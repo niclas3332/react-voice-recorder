@@ -200,7 +200,7 @@ class Recorder extends Component {
 
                         ) :
                         (
-                          <div>
+                          <>
                             <button className={styles.start_button} title="Upload recording" onClick={async e => {
                               await this.stopRecording(e);
 
@@ -218,7 +218,7 @@ class Recorder extends Component {
                                     onClick={e => this.handleReset(e)}>
                               <FontAwesomeIcon icon={faTrashCan} />
                             </button>
-                          </div>
+                          </>
                         )
                     }
                   </div>

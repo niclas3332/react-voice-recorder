@@ -1,14 +1,9 @@
-import React, { Component, useEffect } from "react";
-import microphone from "./../imgs/microphone.svg";
-import stopIcon from "./../imgs/stop.png";
-import pauseIcons from "./../imgs/pause.png";
-import playIcons from "./../imgs/play-button.png";
-import closeIcons from "./../imgs/close.png";
+import React, { Component } from "react";
 import styles from "../styles.module.css";
-
 const audioType = "audio/*";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faMicrophone, faTimes, faSave, faTrashCan } from "@fortawesome/free-solid-svg-icons";
+import { faMicrophone, faSave, faTrashCan } from "@fortawesome/free-solid-svg-icons";
+import "./styles.css";
 
 class Recorder extends Component {
   constructor(props) {
@@ -192,12 +187,12 @@ class Recorder extends Component {
               !medianotFound ?
                 (
                   <div className={styles.record_section}>
-
+                    <div className={styles.start_button_container}>
 
                     {
                       !recording ?
                         (
-                          <button className="cancel-button" title="Cancel recording"
+                          <button className={styles.start_button} title="Start recording"
                                   onClick={e => this.startRecording(e)}>
                             <FontAwesomeIcon icon={faMicrophone} />
                           </button>
@@ -206,24 +201,27 @@ class Recorder extends Component {
                         ) :
                         (
                           <div>
-                          <button className="cancel-button" title="Upload recording"  onClick={async e => {
-                            await this.stopRecording(e);
+                            <button className={styles.start_button} title="Upload recording" onClick={async e => {
+                              await this.stopRecording(e);
 
-                            setTimeout(() => {
-                              this.props.handleAudioUpload(this.state.audioBlob)
+                              setTimeout(() => {
+                                this.props.handleAudioUpload(this.state.audioBlob);
 
-                            }, 100)
+                              }, 100);
 
 
-                          }}>
-                            <FontAwesomeIcon icon={ faSave }/>
-                          </button>
-                          <button className="cancel-button" title="Cancel recording" onClick={e => this.handleReset(e)}>
-                            <FontAwesomeIcon icon={ faTrashCan }/>
-                          </button>
+
+                            }}>
+                              <FontAwesomeIcon icon={faSave} />
+                            </button>
+                            <button className={styles.cancel_button} title="Cancel recording"
+                                    onClick={e => this.handleReset(e)}>
+                              <FontAwesomeIcon icon={faTrashCan} />
+                            </button>
                           </div>
                         )
                     }
+                  </div>
                   </div>
                 ) :
                 (
@@ -233,6 +231,7 @@ class Recorder extends Component {
                 )
 
             }
+
           </div>
         </div>
       </div>

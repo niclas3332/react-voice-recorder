@@ -89,9 +89,11 @@
     background: rgba(123, 118, 106, 0.21);
 }
 
-.recorder_library_box .record_section {
-    position: relative;
-    flex: 1;
+.record_section {
+    height: 100%;
+    display: flex;
+    justify-content: space-evenly;
+    padding: 0.5rem;
 }
 
 .recorder_library_box .record_section .mic_icon {
@@ -235,4 +237,38 @@
     width: 30px;
     height: 30px;
     display: flex;
+}
+
+
+.start_button,
+.cancel_button {
+    border: none;
+    border-radius: 50%;
+    cursor: pointer;
+}
+
+.cancel_button:hover {
+    color: #fd1c03;
+}
+
+.cancel_button {
+    width: 20px;
+    height: 20px;
+}
+
+.start_button_container {
+    width: 15%;
+    display: flex;
+    margin-bottom:10px;
+    place-content: center;
+    row-gap: 2px;
+}
+
+.start_button:hover {
+    color: green;
+}
+
+.start_button {
+    width: 20px;
+    height: 20px;
 }

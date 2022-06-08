@@ -26,6 +26,8 @@ class App extends React.Component {
   }
   handleAudioUpload(file) {
     console.log(file);
+
+
   }
   handleReset() {
     const reset = {

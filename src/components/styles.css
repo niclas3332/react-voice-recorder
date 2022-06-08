@@ -1,0 +1,16 @@
+
+.start-button,
+.cancel-button {
+    border: none;
+    border-radius: 50%;
+    cursor: pointer;
+}
+
+.cancel-button:hover {
+    color: #fd1c03;
+}
+
+.cancel-button {
+    width: 20px;
+    height: 20px;
+}

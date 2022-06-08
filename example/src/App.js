@@ -40,17 +40,18 @@ class App extends React.Component {
     };
     this.setState({ audioDetails: reset });
   }
+
   render() {
     return (
       <Recorder
         record={true}
         title={"New recording"}
         audioURL={this.state.audioDetails.url}
-        showUIAudio
+        disableFullUI={true}
         handleAudioStop={data => this.handleAudioStop(data)}
         handleAudioUpload={data => this.handleAudioUpload(data)}
         handleReset={() => this.handleReset()}
-        mimeTypeToUseWhenRecording={`audio/webm`}
+
       />
     )
   }

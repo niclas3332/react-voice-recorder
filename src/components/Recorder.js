@@ -158,7 +158,7 @@ class Recorder extends Component {
 
   saveAudio() {
     // convert saved chunks to blob
-    const blob = new Blob(this.chunks, { type: audioType });
+    const blob = new Blob(this.chunks, { type: this.mediaRecorder.mimeType });
     // generate video url from blob
     const audioURL = window.URL.createObjectURL(blob);
     // append videoURL to list of saved videos for rendering

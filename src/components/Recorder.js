@@ -4,8 +4,10 @@ const audioType = "audio/*";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faMicrophone, faSave, faTrashCan } from "@fortawesome/free-solid-svg-icons";
 import "./styles.css";
-
+import MicRecorder from "../MicRecorder";
 class Recorder extends Component {
+
+  
   constructor(props) {
     super(props);
     this.state = {
@@ -21,6 +23,10 @@ class Recorder extends Component {
     this.startTimer = this.startTimer.bind(this);
     this.countDown = this.countDown.bind(this);
   }
+  recorder = new MicRecorder({
+    bitRate: 128
+  });
+  
 
   handleAudioPause(e) {
     e.preventDefault();
@@ -81,20 +87,16 @@ class Recorder extends Component {
       navigator.mozGetUserMedia ||
       navigator.msGetUserMedia;
     if (navigator.mediaDevices) {
-      const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+     
       if (this.props.mimeTypeToUseWhenRecording) {
-        this.mediaRecorder = new MediaRecorder(stream, { mimeType: this.props.mimeTypeToUseWhenRecording });
+        this.mediaRecorder = this.recorder;
       } else {
-        this.mediaRecorder = new MediaRecorder(stream);
+        this.mediaRecorder = this.recorder;
       }
       this.chunks = [];
-      this.mediaRecorder.ondataavailable = e => {
-        if (e.data && e.data.size > 0) {
-          this.chunks.push(e.data);
-        }
-      };
+    
 
-      this.stream = stream;
+    
     } else {
       this.setState({ medianotFound: true });
       console.log("Media Decives will work only with SSL.....");
@@ -108,7 +110,7 @@ class Recorder extends Component {
 
     await this.initRecorder();
     // start recorder with 10ms buffer
-    this.mediaRecorder.start(10);
+    this.mediaRecorder.start();
     this.startTimer();
     // say that we're recording
     this.setState({ recording: true });
@@ -121,14 +123,7 @@ class Recorder extends Component {
     e.preventDefault();
     // stop the recorder
 
-    if (this.stream.getAudioTracks) {
-      const tracks = this.stream.getAudioTracks();
-      tracks.forEach((track) => {
-        track.stop();
-      });
-    } else {
-      console.log("No Tracks Found");
-    }
+   
 
     this.mediaRecorder.stop();
 
@@ -158,18 +153,35 @@ class Recorder extends Component {
 
   saveAudio() {
     // convert saved chunks to blob
-    const blob = new Blob(this.chunks, { type: audioType });
-    // generate video url from blob
-    const audioURL = window.URL.createObjectURL(blob);
-    // append videoURL to list of saved videos for rendering
-    const audios = [audioURL];
-    this.setState({ audios, audioBlob: blob });
-    this.props.handleAudioStop({
-      url: audioURL,
-      blob: blob,
-      chunks: this.chunks,
-      duration: this.state.time
+
+    this.mediaRecorder.getMp3().then(([buffer, blob]) => {
+    
+
+
+
+      
+      // generate video url from blob
+      const audioURL = window.URL.createObjectURL(blob);
+      // append videoURL to list of saved videos for rendering
+      const audios = [audioURL];
+      this.setState({ audios, audioBlob: blob });
+      this.props.handleAudioStop({
+        url: audioURL,
+        blob: blob,
+        chunks: buffer,
+        duration: this.state.time
+      });
+
+
+    
+    }).catch((e) => {
+      alert('We could not retrieve your message');
+      console.log(e);
     });
+
+
+
+
     console.log("Save Audio");
   }
 

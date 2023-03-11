@@ -28,9 +28,8 @@
     "deploy": "gh-pages -d example/build"
   },
   "peerDependencies": {
-    "react": "^16.0.0",
-    "@fortawesome/free-solid-svg-icons": "^6.1.1"
-
+    "@fortawesome/free-solid-svg-icons": "^6.1.1",
+    "react": "^16.0.0"
   },
   "devDependencies": {
     "babel-eslint": "^10.0.3",
@@ -55,6 +54,8 @@
   },
   "files": [
     "dist"
-  ]
-  
+  ],
+  "dependencies": {
+    "lamejs": "^1.2.1"
+  }
 }

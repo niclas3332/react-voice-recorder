@@ -56,6 +56,6 @@
     "dist"
   ],
   "dependencies": {
-    "lamejs": "^1.2.1"
+    "lamejs": "github:zhuker/lamejs"
   }
 }
